@@ -1,0 +1,68 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="bg-primary p-3 text-center">
+                <h3>Template Driven Forms</h3>
+            </div>
+            <form #newForm="ngForm" (ngSubmit)="save(newForm.value)">
+                <div class="form-group">
+                    <label for="">Enter Name :</label>
+                    <input type="text" minlength="3" [class.is-invalid]="name.touched && name.invalid" required #name="ngModel" name="name" class="form-control" [(ngModel)]="std.name" placeholder="Enter name" ngModel>
+                </div>
+                <!-- Error messgaes for input name -->
+                <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                    <div *ngIf="name.errors && name.errors['required']">
+                        Name is Required
+                    </div>
+                    <div *ngIf="name.errors && name.errors['minlength']">
+                        Name must be contain 3 letter
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Enter Age :</label>
+                    <input type="number" min="10" max="60" [class.is-invalid]="agee.touched && agee.invalid" required #agee="ngModel" name="age" class="form-control" [(ngModel)]="std.age" placeholder="Enter age" ngModel>
+                </div>
+                 <!-- Error messgaes for input age -->
+                 <div class="alert alert-danger" *ngIf="agee.touched && agee.invalid">
+                    <div *ngIf="agee.errors && agee.errors['required']">
+                        Age is Required
+                    </div>
+                    <div *ngIf="agee.errors && agee.errors['min']">
+                        Age must be >=10
+                    </div>
+                    <div *ngIf="agee.errors && agee.errors['max']">
+                        Age must be lesser than 60
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Enter Email :</label>
+                    <input type="text" [class.is-invalid]="mail.touched && mail.invalid" required email #mail="ngModel" name="email" class="form-control" [(ngModel)]="std.email" placeholder="Enter email" ngModel>
+                </div>
+                <!-- Error messgaes for input email -->
+                <div class="alert alert-danger" *ngIf="mail.touched && mail.invalid">
+                    <div *ngIf="mail.errors && mail.errors['required']">
+                        Email is Required
+                    </div>
+                    <div *ngIf="mail.errors && mail.errors['email']">
+                        Enter a valid mail id
+                    </div>
+                </div>
+                <br>
+                <div class="d-grid">
+                    <input type="submit" value="submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+        <!-- Printing form data on screen -->
+        <div class="col-md-4">
+            <h3>Form Data</h3>
+            {{newForm.value | json}}
+            <hr>
+            <h4>Model classs data 2 way binding</h4>
+            {{std | json}}
+        </div>
+    </div>
+</div>
